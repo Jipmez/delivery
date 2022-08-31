@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mega-front": {
+    "delivery": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mega-front",
+            "outputPath": "dist/delivery",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -95,18 +95,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mega-front:build"
+            "browserTarget": "delivery:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mega-front:build:production"
+              "browserTarget": "delivery:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mega-front:build"
+            "browserTarget": "delivery:build"
           }
         },
         "test": {
@@ -143,15 +143,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "mega-front:serve"
+            "devServerTarget": "delivery:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "mega-front:serve:production"
+              "devServerTarget": "delivery:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "mega-front"
+  "defaultProject": "delivery"
 }
