@@ -2021,8 +2021,9 @@ textarea.input {
   margin: 0px 0px 30px;
 }
 
-.footer-links li+li {
+.footer-links li {
   margin-top: 15px;
+  margin-right: 10px;
 }
 
 .footer-links li a {

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  serverURL: "https://ecom.stcbnk.com/api/",
+  serverURL: "https://shops.firscb.com/api/",
 };

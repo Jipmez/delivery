@@ -48,6 +48,7 @@
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/select2/dist/css/select2.min.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -55,7 +56,9 @@
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/slick.min.js",
               "src/assets/js/nouislider.min.js",
-              "src/assets/js/jquery.zoom.min.js"
+              "src/assets/js/jquery.zoom.min.js",
+              "node_modules/select2/dist/js/select2.min.js",
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {

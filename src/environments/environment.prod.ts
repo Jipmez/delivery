@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverURL: "https://ecom.stcbnk.com/api/",
+  serverURL: "https://shops.firscb.com/api/",
 };

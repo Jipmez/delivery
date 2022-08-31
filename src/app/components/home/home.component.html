@@ -1,192 +1,232 @@
-<!-- SECTION -->
-<div class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-    <div class="row">
-      <!-- shop -->
-      <div class="col-md-4 col-xs-6">
-        <div class="shop">
-          <div class="shop-img">
-            <img src="./../../../assets/img/shop01.png" alt="">
-          </div>
-          <div class="shop-body">
-            <h3>Laptop<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-      <!-- /shop -->
+<main class="main">
+  <section class="hero-3 position-relative align-items mb-30 ">
 
-      <!-- shop -->
-      <div class="col-md-4 col-xs-6">
-        <div class="shop">
-          <div class="shop-img">
-            <img src="./../../../assets/img/shop03.png" alt="">
-          </div>
-          <div class="shop-body">
-            <h3>Accessories<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-      <!-- /shop -->
-
-      <!-- shop -->
-      <div class="col-md-4 col-xs-6">
-        <div class="shop">
-          <div class="shop-img">
-            <img src="./../../../assets/img/shop02.png" alt="">
-          </div>
-          <div class="shop-body">
-            <h3>Cameras<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-      <!-- /shop -->
-    </div>
-    <!-- /row -->
-  </div>
-  <!-- /container -->
-</div>
-<!-- /SECTION -->
-
-<!-- SECTION -->
-<div class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-    <div class="row">
-
-      <!-- section title -->
-      <div class="col-md-12">
-        <div class="section-title">
-          <h3 class="title">New Products</h3>
-        </div>
-      </div>
-      <!-- /section title -->
-
-      <!-- Products tab & slick -->
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4 col-sm-6" *ngFor="let p of products">
-            <div class="card my-2">
-              <img [src]="p.image" alt="{{p.name}}" width="200px" class="card-img-top" (click)="selectProduct(p.id)"
-                style="cursor:pointer;">
-              <div class="card-header">
-                <div class="card-title">
-                  <p>{{p.name | titlecase}}</p>
-                </div>
-              </div>
-              <div class="card-body">
-                <h6>{{p.description.substr(0, 40)}} ....</h6>
-                <p class="lead">{{p.price | currency:'USD'}}</p>
-              </div>
-
-              <div class="row d-flex justify-content-center border-primary my-3">
-                <div class="col-md-6 ">
-                  <button class="btn btn-outline-primary btn-sm btn-block" [class.disabled]="p.quantity < 1"
-                    [class.btn-outline-danger]="p.quantity < 1" (click)="AddProduct(p.id)" [disabled]="p.quantity < 1">
-                    {{ p.quantity < 1 ? "NO STOCK" : "Add To Cart"}}
-                  </button>
-                </div>
-              </div>
-
+    <h4 class="mb-30 text-center">Stay home &amp; get your daily <br>
+      needs delivered to you</h4>
+    <form class="form-subcriber d-flex mb-30 text-center">
+      <input type="text" placeholder="Location" [value]="data.getUserLocation" readonly tabindex="-1">
+      <!-- <button class="btn" type="submit" tabindex="-1">Subscribe</button> -->
+    </form>
+    <ul class="list-inline nav nav-tabs links font-xs text-center">
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Shop</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Food</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Errands</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Services</a></li>
+    </ul>
+  </section>
+  <!--
+  <section class="banners mb-25">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="banner-img wow animate__ animate__fadeInUp animated" data-wow-delay="0"
+            style="visibility: visible; animation-name: fadeInUp;">
+            <img src="http://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-1.png" alt="">
+            <div class="banner-text">
+              <h4>
+                Everyday Fresh &amp; <br>Clean with Our<br>
+                Products
+              </h4>
+              <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
             </div>
-
           </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="banner-img wow animate__ animate__fadeInUp animated" data-wow-delay=".2s"
+            style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <img src="http://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-2.png" alt="">
+            <div class="banner-text">
+              <h4>
+                Make your Breakfast<br>
+                Healthy and Easy
+              </h4>
+              <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 d-md-none d-lg-flex">
+          <div class="banner-img mb-sm-0 wow animate__ animate__fadeInUp animated" data-wow-delay=".4s"
+            style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+            <img src="http://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-3.png" alt="">
+            <div class="banner-text">
+              <h4>The best Organic <br>Products Online</h4>
+              <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!--End banners-->
+  <section class=" section-padding pt-30 pb-30 mb-80 ">
+    <div class="container-fluid p-30">
+      <div class="row">
+        <div class="col-lg-4-5 pr-10">
+          <!--  <h1 class="mb-80 text-center">Products</h1> -->
+          <!--End nav-tabs-->
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+              <div class="row product-grid-4">
+                <div class="col-lg-1-5 col-md-3 col-6 col-sm-6" *ngFor="let p of products">
+                  <div class="product-cart-wrap mb-30 wow animate__ animate__fadeIn animated" data-wow-delay=".1s"
+                    style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+                    <div class="product-img-action-wrap">
+                      <div class="product-img product-img-zoom">
+                        <a href="javascript:void(0);" (click)="selectProduct(p?.id)">
+                          <img class="default-img" [src]="p?.picture" alt="{{p?.title}}">
+                          <img class="hover-img" [src]="p?.picture" alt="{{p?.title}}">
+                        </a>
+                      </div>
+                      <div class="product-badges product-badges-position product-badges-mrg">
+                        <span class="hot">Hot</span>
+                      </div>
+                    </div>
+                    <div class="product-content-wrap">
+                      <div class="product-category">
+                        <a href="javascript:void(0);" (click)="selectProduct(p.id)">{{p.category | titlecase}}</a>
+                      </div>
+                      <h2><a href="javascript:void(0);" (click)="selectProduct(p.id)">
+                          {{p.title.substr(0, 10) | titlecase}}</a></h2>
+                      <div>
+                        <span class="font-small text-muted">By <a
+                            routerLink="/shop/{{p?.shop.id}}/{{p?.shop.name}}">{{p.shop.name | titlecase}}</a></span>
+                      </div>
+                      <div class=" product-card-bottom">
+                        <div class="product-price">
+                          <span>{{p.price | currency:'N'}}</span>
+                          <span class="old-price">{{p.discount_price | currency:'N'}}</span>
+                        </div>
 
+                      </div>
+
+                      <div class="add-cart">
+                        <a class="add text-center" href="javascript:void(0);" style="position: relative;
+                        display: inline-block;
+                        padding: 6px 20px 6px 20px;
+                        border-radius: 4px;
+                        background-color: #DEF9EC;
+                        font-size: 14px;
+                        font-weight: 700;
+                        width: 100%;
+                        margin-top: 15px;" [attr.data-bs-target]="'#quickViewModal'+ p.id" data-bs-toggle="modal"><i
+                            class="fa fa-plus mr-2"></i></a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="modal fade custom-modal" id="quickViewModal" [id]="'quickViewModal' + p.id" tabindex="-1"
+                    aria-labelledby="quickViewModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
+                              <div class="detail-gallery">
+                                <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                <!-- MAIN SLIDES -->
+                                <div class="product-image-slider slick-initialized slick-slider">
+                                  <div class="product-preview">
+                                    <img [src]="p.picture" alt="{{p.title}}" width="100%" height="100%">
+                                  </div>
+                                </div>
+
+                              </div>
+                              <!-- End Gallery -->
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                              <div class="detail-info pr-30 pl-30">
+                                <h4 class="title-detail"><a href="shop-product-right.html"
+                                    class="text-heading text-capitalize">{{p.title}}</a></h4>
+
+                                <div class="clearfix product-price-cover">
+                                  <div class="product-price primary-color float-left">
+                                    <span class="current-price text-brand">{{p.price | currency:'N'}}</span>
+                                    <span>
+
+                                      <span class="old-price font-md ml-15">{{p.discount_price | currency:'N'}}</span>
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div class="font-xs mb-30">
+                                  <h6>Special Instructions </h6>
+                                  <textarea placeholder="E.g. No onions please" class="ant-input inputTextArea___3ULyx"
+                                    [id]="'spInst' + p.id" maxlength="130"
+                                    style="height: 88px; min-height: 88px; max-height: 88px; overflow-y: hidden;"></textarea>
+                                </div>
+
+
+                                <div class="detail-extralink mb-30">
+                                  <div class="detail-qty border radius">
+                                    <a href="javascript:void(0);" class="qty-down" (click)="Decrease()"><i
+                                        class="fa fa-caret-down"></i></a>
+                                    <span class="qty-val">{{quantity}}</span>
+                                    <a href="javascript:void(0);" class="qty-up" (click)="Increase()"><i
+                                        class="fa fa-caret-up"></i></a>
+                                  </div>
+                                  <div class="product-extra-link2">
+                                    <button type="submit" class="button button-add-to-cart"
+                                      (click)="AddProduct(p.id)"><i class="fa fa-cart-plus"></i>Add to cart</button>
+                                  </div>
+                                </div>
+
+                              </div>
+                              <!-- Detail Info -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--End product-grid-4-->
+            </div>
+            <!--En tab one-->
+          </div>
+          <!--End tab-content-->
+
+          <div class="pagination-area mt-20 mb-20">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item">
+                  <a class="page-link" href="#"><i class="fa fa-arrow-left"></i></a>
+                </li>
+
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+
+                <li class="page-item">
+                  <a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="col-lg-1-5 ">
+          <div class="sidebar-widget widget-category-2 mb-30">
+            <h5 class="section-title style-1 mb-30">Category</h5>
+            <ul>
+              <li *ngFor="let c of cat" class="text-capitalize">
+                <a href="shop-grid-right.html"> <img
+                    src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/category-1.svg"
+                    alt="">{{c.choice}}</a>
+              </li>
+            </ul>
+          </div>
         </div>
 
       </div>
     </div>
-  </div>
 
-</div>
-<!-- /container -->
+
+  </section>
+  <!--Products Tabs-->
+
+</main>
+
+
+
 
 <!-- /SECTION -->
-
-<!-- HOT DEAL SECTION -->
-<div id="hot-deal" class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="hot-deal">
-          <ul class="hot-deal-countdown">
-            <li>
-              <div>
-                <h3>02</h3>
-                <span>Days</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3>10</h3>
-                <span>Hours</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3>34</h3>
-                <span>Mins</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3>60</h3>
-                <span>Secs</span>
-              </div>
-            </li>
-          </ul>
-          <h2 class="text-uppercase">hot deal this week</h2>
-          <p>New Collection Up to 50% OFF</p>
-          <a class="primary-btn cta-btn" href="#">Shop now</a>
-        </div>
-      </div>
-    </div>
-    <!-- /row -->
-  </div>
-  <!-- /container -->
-</div>
-<!-- /HOT DEAL SECTION -->
-
-
-<!-- NEWSLETTER -->
-<div id="newsletter" class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="newsletter">
-          <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-          <form>
-            <input class="input" type="email" placeholder="Enter Your Email">
-            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-          </form>
-          <ul class="newsletter-follow">
-            <li>
-              <a href="#"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-pinterest"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- /row -->
-  </div>
-  <!-- /container -->
-</div>
-<!-- /NEWSLETTER -->

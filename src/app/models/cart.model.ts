@@ -6,6 +6,8 @@ export interface CartModelServer {
     {
       product: ProductModelServer;
       numInCart: any;
+      info: String;
+      shop: String;
     }
   ];
 }
@@ -16,6 +18,8 @@ export interface CartModelPublic {
     {
       id: Number;
       incart: Number;
+      info: String;
+      shop: String;
     }
   ];
 }

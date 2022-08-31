@@ -1,186 +1,224 @@
-<ngx-spinner
-  bdColor= "rgba(151,149,149,0.4)"
-  size="large"
-  color="orange"
-  type="ball-clip-rotate-pulse"
-  fullScreen="true"
->
+<ngx-spinner bdColor="rgba(151,149,149,0.4)" size="large" color="orange" type="ball-clip-rotate-pulse"
+  fullScreen="true">
   <p style="font-size: 20px; color: black">Booking Order...</p>
 </ngx-spinner>
 
-<div class="section" *ngIf="cartData.total > 0">
-<!-- container -->
-<div class="container">
-  <!-- row -->
-  <div class="row">
-
-    <div class="col-md-7">
-      <!-- Billing Details -->
-      <div class="billing-details">
-        <div class="section-title">
-          <h3 class="title">Billing address</h3>
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="first-name" placeholder="First Name">
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="last-name" placeholder="Last Name">
-        </div>
-        <div class="form-group">
-          <input class="input" type="email" name="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="address" placeholder="Address">
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="city" placeholder="City">
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="country" placeholder="Country">
-        </div>
-        <div class="form-group">
-          <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-        </div>
-        <div class="form-group">
-          <input class="input" type="tel" name="tel" placeholder="Telephone">
-        </div>
-        <div class="form-group">
-          <div class="input-checkbox">
-            <input type="checkbox" id="create-account">
-            <label for="create-account">
-              <span></span>
-              Create Account?
-            </label>
-            <div class="caption">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-              <input class="input" type="password" name="password" placeholder="Enter Your Password">
-            </div>
-          </div>
-        </div>
+<main class="main" data-select2-id="20" *ngIf="cartData.total > 0">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+        <span></span> Shop
+        <span></span> Checkout
       </div>
-      <!-- /Billing Details -->
-
-      <!-- Shiping Details -->
-      <div class="shiping-details">
-        <div class="section-title">
-          <h3 class="title">Shiping address</h3>
-        </div>
-        <div class="input-checkbox">
-          <input type="checkbox" id="shiping-address">
-          <label for="shiping-address">
-            <span></span>
-            Ship to a diffrent address?
-          </label>
-          <div class="caption">
-            <div class="form-group">
-              <input class="input" type="text" name="first-name" placeholder="First Name">
-            </div>
-            <div class="form-group">
-              <input class="input" type="text" name="last-name" placeholder="Last Name">
-            </div>
-            <div class="form-group">
-              <input class="input" type="email" name="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <input class="input" type="text" name="address" placeholder="Address">
-            </div>
-            <div class="form-group">
-              <input class="input" type="text" name="city" placeholder="City">
-            </div>
-            <div class="form-group">
-              <input class="input" type="text" name="country" placeholder="Country">
-            </div>
-            <div class="form-group">
-              <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-            </div>
-            <div class="form-group">
-              <input class="input" type="tel" name="tel" placeholder="Telephone">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /Shiping Details -->
-
-      <!-- Order notes -->
-      <div class="order-notes">
-        <textarea class="input" placeholder="Order Notes"></textarea>
-      </div>
-      <!-- /Order notes -->
     </div>
-
-    <!-- Order Details -->
-    <div class="col-md-5 order-details">
-      <div class="section-title text-center">
-        <h3 class="title">Your Order</h3>
-      </div>
-      <div class="order-summary">
-        <div class="order-col">
-          <div><strong>PRODUCT</strong></div>
-          <div><strong>SubTotal</strong></div>
-        </div>
-        <div class="order-products">
-          <div class="order-col" *ngFor="let c of cartData.data;">
-            <div>{{c.numInCart}}x {{c.product.name}}</div>
-            <div>{{(c.product.price*c.numInCart) | currency:'USD'}}</div>
-          </div>
-        </div>
-        <div class="order-col">
-          <div>Shipping</div>
-          <div><strong>FREE</strong></div>
-        </div>
-        <div class="order-col dropdown-divider">
-          <div><strong>TOTAL</strong></div>
-          <div><strong class="order-total">{{cartTotal | currency:'USD'}}</strong></div>
-        </div>
-      </div>
-      <div class="payment-method">
-        <div class="input-radio">
-          <input type="radio" name="payment" id="payment-1">
-          <label for="payment-1">
-            <span></span>
-            Direct Bank Transfer
-          </label>
-          <div class="caption">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="input-radio">
-          <input type="radio" name="payment" id="payment-2">
-          <label for="payment-2">
-            <span></span>
-            Cheque Payment
-          </label>
-          <div class="caption">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="input-radio">
-          <input type="radio" name="payment" id="payment-3">
-          <label for="payment-3">
-            <span></span>
-            Paypal System
-          </label>
-          <div class="caption">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-      </div>
-      <div class="input-checkbox">
-        <input type="checkbox" id="terms">
-        <label for="terms">
-          <span></span>
-          I've read and accept the <a href="#">terms & conditions</a>
-        </label>
-      </div>
-      <button type="submit" class="btn-outline-danger btn-sm my-2 btn-block" [disabled]="cartTotal <= 0 " (click)="onCheckout()">Place order</button>
-    </div>
-    <!-- /Order Details -->
   </div>
-  <!-- /row -->
-</div>
-<!-- /container -->
-</div>
-<!-- /SECTION -->
+  <div class="container mb-80 mt-50" data-select2-id="19">
+    <div class="row">
+      <div class="col-lg-8 mb-40">
+        <h1 class="heading-2 mb-10">Checkout</h1>
+        <div class="d-flex justify-content-between">
+          <h6 class="text-body">There are <span class="text-brand">3</span> products in your cart</h6>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="row mb-50">
+          <div class="col-lg-8 mb-sm-15 mb-lg-0 mb-md-3">
+            <div class="toggle_info">
+              <span><i class="fa fa-user mr-10"></i><span class="text-muted font-lg">Already have an account?</span> <a
+                  (click)="login()" data-toggle="collapse" href="javascript:void(0);" role="button"
+                  aria-expanded="false" aria-controls="login_form" class="font-lg">Click here
+                  to login</a></span>
+            </div>
+            <div class="panel-collapse login_form collapse " id="login_form">
+              <div class="panel-body">
+                <p class="mb-30 font-sm">If you have shopped with us before, please enter your details below. If you are
+                  a new customer, please proceed to the Billing &amp; Shipping section.</p>
+                <form [formGroup]="loginForm">
+                  <div class="form-group">
+                    <input type="email" required="" name="username" placeholder=" Email *" formControlName="username">
+                  </div>
+                  <div class="form-group">
+                    <input required="" type="password" name="password" placeholder="Your password *"
+                      formControlName="password">
+                  </div>
+                  <div class="login_footer form-group">
+                    <div class="chek-form">
+                      <div class="custome-checkbox">
+                        <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
+                        <label class="form-check-label" for="remember"><span>Remember me</span></label>
+                      </div>
+                    </div>
+                    <a href="#">Forgot password?</a>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-md" name="login" [disabled]="!loginForm.valid" (click)="onSubmit()">Log
+                      in</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <form [formGroup]="checkoutForm">
+      <div class="row">
+        <div class="col-lg-7">
+          <h4 class="mb-30">Billing Details</h4>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <input type="text" class="form-control" required="" name="fname" placeholder="Full name *"
+                formControlName="full_name">
+            </div>
+            <div class="form-group col-lg-6">
+              <input type="text" class="form-control" required="" name="email" placeholder="Email *"
+                [readonly]="this.checkoutForm.value.email" formControlName="email">
+            </div>
+          </div>
+          <div formGroupName="address">
+            <div class="row">
+              <div class="form-group col-lg-6">
+                <input type="text" class="form-control" name="billing_address" required="" placeholder="Address *"
+                  formControlName="billing_address">
+              </div>
+              <div class="form-group col-lg-6">
+                <input type="text" class="form-control" name="landmark" required="" placeholder="Landmark *"
+                  formControlName="landmark">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <input required class="form-control" type="number" name="phone" placeholder="Phone *"
+                formControlName="phone">
+            </div>
+          </div>
+          <!--    <div class="form-group" *ngIf="!auth.isLoggedIn()">
+            <div class="checkbox">
+              <div class="custome-checkbox">
+                <input class="form-check-input" type="checkbox" name="checkbox" id="createaccount"
+                  formControlName="create_account">
+                <label class="form-check-label label_info" data-bs-toggle="collapse" href="#collapsePassword"
+                  (click)="collapsePass()" data-target="#collapsePassword" aria-controls="collapsePassword"
+                  for="createaccount"><span>Create an
+                    account?</span></label>
+              </div>
+            </div>
+          </div>
+          <div id="collapsePassword" class="form-group create-account collapse in" *ngIf="!auth.isLoggedIn()">
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="password" placeholder="Password" formControlName="password" autocomplete="new-password">
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="col-lg-5">
+          <div class="border p-40 cart-totals ml-30 mb-50">
+            <div class="d-flex align-items-end justify-content-between mb-30">
+              <h4>Your Order</h4>
+              <h6 class="text-muted">Subtotal</h6>
+            </div>
+            <div class="divider-2 mb-30"></div>
+            <div class="table-responsive order_table checkout">
+              <table class="table no-border">
+                <tbody>
+                  <tr *ngFor="let c of cartData.data;">
+                    <td class="image product-thumbnail"><img [src]="c.product.picture" alt="#"></td>
+                    <td>
+                      <h6 class="w-160 mb-5"><a href="shop-product-full.html"
+                          class="text-heading">{{c.product.title}}</a>
+                      </h6>
+
+                    </td>
+                    <td>
+                      <h6 class="text-muted pl-20 pr-20">x {{c.numInCart}}</h6>
+                    </td>
+                    <td>
+                      <h4 class="text-brand">{{c.product.price | currency : 'N'}}</h4>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="ant-select-selection-selected-value mb-1" style="display: block; opacity: 1;">Delivery
+                time</div>
+
+              <div class="form-group form-control">
+                <div class="custom-select js-example-basic-single"
+                  style="width:100%; border-radius: 10px; border: none;">
+                  <select formControlName="delivery_time">
+                    <option value="1"> Now
+                    </option>
+                    <option value="2"> 12:00pm - 5:00pm</option>
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="Summary___xAbzz">
+                <div class="feeDetail___UmhH4 ">
+
+                  <div class="flexSpaceBetween___J6Lln mb-2">
+                    <div class="subTotal___1rSTB"><span>Delivery fee</span>
+                    </div>
+                    <h6>
+                      {{(this.checkoutForm.value.delivery_time == 1 ?  data.getUserLocationInstantPrice : data.getUserLocationLaterPrice) | currency : 'N'}}
+                    </h6>
+                  </div>
+
+
+                  <div class="flexSpaceBetween___J6Lln">
+                    <div class="subTotal___1rSTB"><span>Subtotal (estimated)</span>
+                    </div>
+                    <h6>
+                      {{(this.checkoutForm.value.delivery_time == 1 ? cartTotal +  data.getUserLocationInstantPrice : cartTotal + data.getUserLocationLaterPrice) | currency : 'N'}}
+                    </h6>
+                  </div>
+
+
+                </div>
+                <!-- <div>Delivery Fee will be shown after you review order</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="payment ml-30">
+            <h4 class="mb-30">Payment</h4>
+            <div class="payment_option">
+              <div class="custome-radio">
+                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3"
+                  checked="">
+                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
+                  data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank Transfer</label>
+              </div>
+              <div class="custome-radio">
+                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5"
+                  checked="">
+                <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal"
+                  aria-controls="paypal">Online Getway</label>
+              </div>
+            </div>
+            <div class="payment-logo d-flex">
+              <img class="mr-15" src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/payment-visa.svg"
+                alt="">
+              <img class="mr-15" src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/payment-master.svg"
+                alt="">
+            </div>
+            <button (click)="checkOut()" name="logiawn" type="submit" [disabled]="!auth.isLoggedIn()"
+              class="btn btn-fill-out btn-block mt-30"> {{!auth.isLoggedIn() ? 'Login to' : ''}} Place an
+              Order<i class="fi-rs-sign-out ml-15"></i></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+
 
 <div class="text-center my-5" *ngIf="cartData.total <= 0">
   <h4>Your Cart Is Empty</h4>
