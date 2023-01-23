@@ -17,17 +17,17 @@
                 <div class="padding_eight_all bg-white">
                   <div class="heading_s1">
                     <h1 class="mb-5">Create an Account</h1>
-                    <p class="mb-30">Already have an account? <a href="authenticate?auth=login">Login</a></p>
+                    <p class="mb-30">Already have an account? <a [routerLink]="['/authenticate']"
+                        [queryParams]="{auth: 'login'}">Login</a></p>
                   </div>
-                  <form method="post">
+                  <form [formGroup]="signupForm">
                     <div class="form-group">
-                      <input type="text" required="" name="email" placeholder="Email">
+                      <input type="text" required name="username" placeholder=" Email *" formControlName="email"
+                        placeholder="Email">
                     </div>
                     <div class="form-group">
-                      <input required="" type="password" name="password" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                      <input required="" type="password" name="password" placeholder="Confirm password">
+                      <input required type="password" name="password" placeholder="Your password *"
+                        formControlName="password">
                     </div>
                     <div class="login_footer form-group mb-50">
                       <div class="chek-form">
@@ -38,11 +38,11 @@
                               Policy.</span></label>
                         </div>
                       </div>
-                      <a href="page-privacy-policy.html"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
+                      <a href="#"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
                     </div>
                     <div class="form-group mb-30">
                       <button type="submit" class="btn btn-fill-out btn-block hover-up font-weight-bold"
-                        name="login">Submit &amp; Register</button>
+                        [disabled]="!signupForm.valid" (click)="signUp()">Submit &amp; Register</button>
                     </div>
                     <p class="font-xs text-muted"><strong>Note:</strong>Your personal data will be used to support your
                       experience throughout this website, to manage access to your account, and for other purposes
@@ -56,14 +56,15 @@
                 <div class="padding_eight_all bg-white">
                   <div class="heading_s1">
                     <h1 class="mb-5">Login</h1>
-                    <p class="mb-30">Don't have an account? <a href="authenticate?auth=register">Create here</a></p>
+                    <p class="mb-30">Don't have an account? <a [routerLink]="['/authenticate']"
+                        [queryParams]="{auth: 'register'}">Create here</a></p>
                   </div>
                   <form [formGroup]="loginForm">
                     <div class="form-group">
-                      <input type="email" required="" name="username" placeholder=" Email *" formControlName="username">
+                      <input type="email" required name="username" placeholder=" Email *" formControlName="username">
                     </div>
                     <div class="form-group">
-                      <input required="" type="password" name="password" placeholder="Your password *"
+                      <input required type="password" name="password" placeholder="Your password *"
                         formControlName="password">
                     </div>
 

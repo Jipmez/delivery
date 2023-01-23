@@ -21,7 +21,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         headers: req.headers.set(cookieheaderName, csrfToken),
       });
     }
-
+    console.log(req);
     let token = this.server.getToken();
     if (token) {
       let tokenixed = req.clone({

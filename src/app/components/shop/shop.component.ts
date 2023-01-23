@@ -8,6 +8,8 @@ import {
 } from "../../models/product.model";
 import { CartService } from "../../services/cart.service";
 import { DataService } from "src/app/services/data.provider";
+import { ToastrService } from "ngx-toastr";
+
 declare var $;
 @Component({
   selector: "mg-shop",
@@ -28,7 +30,8 @@ export class ShopComponent implements OnInit {
     private router: Router,
     private cartService: CartService,
     private ac: ActivatedRoute,
-    public data: DataService
+    public data: DataService,
+    private toast: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +50,17 @@ export class ShopComponent implements OnInit {
     });
   }
 
+  filterr(x) {
+    var ts = this.products.filter((person) => {
+      return person.title.toLowerCase() == x.toLowerCase();
+    });
+    if (ts.length < 1) return this.toast.success("No products found");
+    this.products = ts;
+  }
   AddProduct(id: Number) {
     this.cartService.AddProductToCart(
       id,
-      this.quantity,
+      $("#quantity" + id).text(),
       $("#spInst" + id).val()
     );
   }
@@ -63,16 +73,21 @@ export class ShopComponent implements OnInit {
     this.cartService.AddProductToCart(id, null, $("#spInst" + id).val());
   }
 
-  Increase() {
+  Increase(id: Number) {
+    this.quantity = $("#quantity" + id).text();
     this.quantity++;
 
+    this.quantity = $("#quantity" + id).text(this.quantity);
     console.log(this.quantity);
     /*  this.quantityInput.nativeElement.value = value.toString(); */
   }
 
-  Decrease() {
+  Decrease(id: Number) {
+    this.quantity = $("#quantity" + id).text();
     this.quantity--;
     if (this.quantity < 1) this.quantity = 1;
+    this.quantity = $("#quantity" + id).text(this.quantity);
+    console.log(this.quantity);
     /*  this.quantityInput.nativeElement.value = value.toString(); */
   }
 }

@@ -1,17 +1,17 @@
 <main class="main">
   <section class="hero-3 position-relative align-items mb-30 ">
 
-    <h4 class="mb-30 text-center">Stay home &amp; get your daily <br>
+    <h4 class="mb-30 text-center text-white">Stay home &amp; get your daily <br>
       needs delivered to you</h4>
     <form class="form-subcriber d-flex mb-30 text-center">
       <input type="text" placeholder="Location" [value]="data.getUserLocation" readonly tabindex="-1">
       <!-- <button class="btn" type="submit" tabindex="-1">Subscribe</button> -->
     </form>
     <ul class="list-inline nav nav-tabs links font-xs text-center">
-      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Shop</a></li>
-      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Food</a></li>
-      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Errands</a></li>
-      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="shop-grid-right.html">Services</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" routerLink="/shops">Shops</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="#">Food</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="#">Errands</a></li>
+      <li class="list-inline-item nav-item"><a class="nav-link font-xs" href="#">Services</a></li>
     </ul>
   </section>
   <!--
@@ -71,15 +71,19 @@
                   <div class="product-cart-wrap mb-30 wow animate__ animate__fadeIn animated" data-wow-delay=".1s"
                     style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
                     <div class="product-img-action-wrap">
-                      <div class="product-img product-img-zoom">
+                      <div class="product-img product-img-zoom" style="height: 130px;">
                         <a href="javascript:void(0);" (click)="selectProduct(p?.id)">
-                          <img class="default-img" [src]="p?.picture" alt="{{p?.title}}">
-                          <img class="hover-img" [src]="p?.picture" alt="{{p?.title}}">
+                          <img class="default-img" [src]="p?.picture" alt="{{p?.title}}" style="height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            z-index: 2;">
+                          <!--  <img class="hover-img" [src]="p?.picture" alt="{{p?.title}}"> -->
                         </a>
                       </div>
-                      <div class="product-badges product-badges-position product-badges-mrg">
+                      <!-- <div class="product-badges product-badges-position product-badges-mrg">
                         <span class="hot">Hot</span>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="product-content-wrap">
                       <div class="product-category">
@@ -115,7 +119,7 @@
                   </div>
 
 
-                  <div class="modal fade custom-modal" id="quickViewModal" [id]="'quickViewModal' + p.id" tabindex="-1"
+                  <div class="modal fade custom-modal" [id]="'quickViewModal' + p.id" tabindex="-1"
                     aria-labelledby="quickViewModalLabel" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -160,10 +164,10 @@
 
                                 <div class="detail-extralink mb-30">
                                   <div class="detail-qty border radius">
-                                    <a href="javascript:void(0);" class="qty-down" (click)="Decrease()"><i
+                                    <a href="javascript:void(0);" class="qty-down" (click)="Decrease(p.id)"><i
                                         class="fa fa-caret-down"></i></a>
-                                    <span class="qty-val">{{quantity}}</span>
-                                    <a href="javascript:void(0);" class="qty-up" (click)="Increase()"><i
+                                    <span class="qty-val" [id]="'quantity' + p.id">{{quantity ? 1 : 1 }}</span>
+                                    <a href="javascript:void(0);" class="qty-up" (click)="Increase(p.id)"><i
                                         class="fa fa-caret-up"></i></a>
                                   </div>
                                   <div class="product-extra-link2">
@@ -194,9 +198,7 @@
                 <li class="page-item">
                   <a class="page-link" href="#"><i class="fa fa-arrow-left"></i></a>
                 </li>
-
                 <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-
                 <li class="page-item">
                   <a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a>
                 </li>
@@ -205,13 +207,12 @@
           </div>
         </div>
         <div class="col-lg-1-5 ">
-          <div class="sidebar-widget widget-category-2 mb-30">
-            <h5 class="section-title style-1 mb-30">Category</h5>
-            <ul>
+          <div class="sidebar-widget widget-category-2 mb-30" id="accordionExample">
+            <h5 class="section-title style-1 mb-30" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">Category</h5>
+            <ul id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <li *ngFor="let c of cat" class="text-capitalize">
-                <a href="shop-grid-right.html"> <img
-                    src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/category-1.svg"
-                    alt="">{{c.choice}}</a>
+                <a [routerLink]="['/categories', c.id, c.choice ]">{{c.choice}}</a>
               </li>
             </ul>
           </div>

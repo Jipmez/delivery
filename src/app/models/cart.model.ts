@@ -2,6 +2,7 @@ import { ProductModelServer } from "./product.model";
 
 export interface CartModelServer {
   total: Number;
+  weight: number;
   data: [
     {
       product: ProductModelServer;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
+declare let $;
 @Component({
   selector: "mg-dispatch",
   templateUrl: "./dispatch.component.html",
@@ -13,12 +14,10 @@ export class DispatchComponent implements OnInit {
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
       this.auth.profile().subscribe((res) => {
-        console.log(res);
         this.user = res;
       });
 
-      this.auth.getDispatchDelivery().subscribe((res) => {
-        console.log(res);
+      this.auth.getDispatchDelivery().subscribe((res) => {   
         this.orders = res;
       });
     }
@@ -38,5 +37,9 @@ export class DispatchComponent implements OnInit {
         console.log(res["message"]);
       });
     x.reset();
+  }
+
+  openOrder(x){
+    $(document.getElementById(x)).toggleClass("d-block");
   }
 }

@@ -69,21 +69,38 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let order of orders">
-                              <td>#1357</td>
+                            <tr *ngFor="let order of orders; let i = index ">
+                              <td>#{{i + 1}}</td>
                               <td>{{order?.ordered_date | date}}</td>
                               <td>
                                 {{order?.packaged == true && order?.received == false ? 'Processing' :  'Delivered'}}
                               </td>
                               <td>{{order?.payment.amount | currency:'N'}} for {{order?.cart.length}} item</td>
-                              <td><a href="#" class="btn-small d-block">View</a></td>
+                              <td><a (click)="openOrder(order.ref_code)" class="btn-small d-block">View</a></td>
+                              <td colspan="3" [id]="order?.ref_code" style="display: none;"><div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
+                                <div class="single-post clearfix" *ngFor="let item of order.cart">
+                                    <div class="image">
+                                        <img src="http://wp.alithemes.com/html/nest/demo/assets/imgs/shop/thumbnail-3.jpg" alt="#">
+                                    </div>
+                                    <div class="content pt-10">
+                                        <h5><a href="shop-product-detail.html">{{item.item}}</a></h5>
+                                        <p class="price mb-0 mt-5">{{item.quantity}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <h5>Phone:  {{order?.phone}}</h5>
+                                <br>
+                                <h5 class="mb-2">{{order?.billing_address.billing_address}}</h5>
+                                <h6>Landmark: {{order?.billing_address.landmark}}</h6> 
+                              </div>
+                              </td>  
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
                     </div>
                   </div>
+                  
                 </div>
                 <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
                   <div class="card">
@@ -118,3 +135,6 @@
     </div>
   </div>
 </main>
+
+
+

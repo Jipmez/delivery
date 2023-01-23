@@ -17,7 +17,7 @@ export class ProductComponent implements AfterViewInit, OnInit {
   product;
   thumbimages: any[] = [];
   cat: Category[] = [];
-  @ViewChild("quantity") quantityInput;
+  quantity: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,46 +88,33 @@ export class ProductComponent implements AfterViewInit, OnInit {
     }
   }
 
-  addToCart(id: Number) {
+  AddProduct(id: Number) {
     this.cartService.AddProductToCart(
       id,
-      this.quantityInput.nativeElement.value,
+      $("#quantity" + id).text(),
       $("#spInst" + id).val()
     );
   }
 
-  Increase() {
-    let value = parseInt(this.quantityInput.nativeElement.value);
-
-    value++;
-    /*  if (this.product.quantity >= 1) {
-      value++;
-
-      if (value > this.product.quantity) {
-        // @ts-ignore
-        value = this.product.quantity;
-      }
-    } else {
-      return;
-    } */
-
-    this.quantityInput.nativeElement.value = value.toString();
+  addToCart(id: Number) {
+    this.cartService.AddProductToCart(id, null, $("#spInst" + id).val());
   }
 
-  Decrease() {
-    let value = parseInt(this.quantityInput.nativeElement.value);
-    value--;
-    if (value < 1) value = 1;
-    /*   if (this.product.quantity > 0) {
-      value--;
+  Increase(id: Number) {
+    this.quantity = $("#quantity" + id).text();
+    this.quantity++;
 
-      if (value <= 0) {
-        // @ts-ignore
-        value = 0;
-      }
-    } else {
-      return;
-    } */
-    this.quantityInput.nativeElement.value = value.toString();
+    this.quantity = $("#quantity" + id).text(this.quantity);
+    console.log(this.quantity);
+    /*  this.quantityInput.nativeElement.value = value.toString(); */
+  }
+
+  Decrease(id: Number) {
+    this.quantity = $("#quantity" + id).text();
+    this.quantity--;
+    if (this.quantity < 1) this.quantity = 1;
+    this.quantity = $("#quantity" + id).text(this.quantity);
+    console.log(this.quantity);
+    /*  this.quantityInput.nativeElement.value = value.toString(); */
   }
 }

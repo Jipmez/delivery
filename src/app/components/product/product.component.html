@@ -55,19 +55,17 @@
                         style="height: 88px; min-height: 88px; max-height: 88px; overflow-y: hidden;"></textarea>
                     </div>
 
-                    <div class="detail-extralink mb-50">
+                    <div class="detail-extralink mb-30">
                       <div class="detail-qty border radius">
-                        <a href="javascript:void(0);" class="qty-down" (click)="Decrease()"><i
+                        <a href="javascript:void(0);" class="qty-down" (click)="Decrease(product.id)"><i
                             class="fa fa-caret-down"></i></a>
-                        <input #quantity type="text" name="quantity" readonly class="qty-val" value="1" min="1">
-                        <a href="javascript:void(0);" class="qty-up" (click)="Increase()"><i
+                        <span class="qty-val" [id]="'quantity' + product.id">{{quantity ? 1 : 1 }}</span>
+                        <a href="javascript:void(0);" class="qty-up" (click)="Increase(product.id)"><i
                             class="fa fa-caret-up"></i></a>
                       </div>
                       <div class="product-extra-link2">
-                        <button type="submit" class="button button-add-to-cart" (click)="addToCart(product?.id)"><i
-                            class="fa fa-shopping-cart"></i>Add
-                          to cart</button>
-
+                        <button type="submit" class="button button-add-to-cart" (click)="AddProduct(product.id)"><i
+                            class="fa fa-cart-plus"></i>Add to cart</button>
                       </div>
                     </div>
 
@@ -110,13 +108,13 @@
             style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
             <div class="theiaStickySidebar"
               style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 1119.75px;">
-              <div class="sidebar-widget widget-category-2 mb-30">
-                <h5 class="section-title style-1 mb-30">Category</h5>
-                <ul>
+
+              <div class="sidebar-widget widget-category-2 mb-30" id="accordionExample">
+                <h5 class="section-title style-1 mb-30" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">Category</h5>
+                <ul id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                   <li *ngFor="let c of cat" class="text-capitalize">
-                    <a href="shop-grid-right.html"> <img
-                        src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/category-1.svg"
-                        alt="">{{c.choice}}</a>
+                    <a [routerLink]="['/categories', c.id, c.choice ]">{{c.choice}}</a>
                   </li>
                 </ul>
               </div>

@@ -32,10 +32,13 @@ export class CartService {
       },
     ],
     total: 0,
+    weight: 0,
   };
 
   cartTotal$ = new BehaviorSubject<Number>(0);
   // Data variable to store the cart information on the client's local storage
+
+  cartWeight$ = new BehaviorSubject<number>(0);
 
   cartDataObs$ = new BehaviorSubject<CartModelServer>(this.cartDataServer);
 
@@ -49,6 +52,7 @@ export class CartService {
     private data: DataService
   ) {
     this.cartTotal$.next(this.cartDataServer.total);
+    this.cartWeight$.next(this.cartDataServer.weight);
     this.cartDataObs$.next(this.cartDataServer);
 
     let info: CartModelPublic = JSON.parse(localStorage.getItem("cart"));
@@ -106,7 +110,6 @@ export class CartService {
     }
     this.productService.getSingleProduct(id).subscribe((prod) => {
       // If the cart is empty
-
       if (this.cartDataServer.data[0].product === undefined) {
         this.cartDataServer.data[0].product = prod;
         this.cartDataServer.data[0].numInCart =
@@ -278,6 +281,7 @@ export class CartService {
             },
           ],
           total: 0,
+          weight: 0,
         };
         this.cartDataObs$.next({ ...this.cartDataServer });
       } else {
@@ -371,15 +375,19 @@ export class CartService {
   }
   private CalculateTotal() {
     let Total = 0;
+    let weight = 0;
 
     this.cartDataServer.data.forEach((p) => {
       const { numInCart } = p;
       const { price } = p.product;
       // @ts-ignore
       Total += numInCart * price;
+      weight += p.product.weight_in_kg;
     });
+    this.cartDataServer.weight = weight;
     this.cartDataServer.total = Total;
     this.cartTotal$.next(this.cartDataServer.total);
+    this.cartWeight$.next(this.cartDataServer.weight);
   }
 
   private resetServerData() {
@@ -393,6 +401,7 @@ export class CartService {
         },
       ],
       total: 0,
+      weight: 0,
     };
     this.cartDataObs$.next({ ...this.cartDataServer });
   }

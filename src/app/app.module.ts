@@ -24,8 +24,10 @@ import { AuthComponent } from "./components/auth/auth.component";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { VendorComponent } from "./components/vendor/vendor.component";
 import { ShopComponent } from "./components/shop/shop.component";
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DispatchComponent } from './components/dispatch/dispatch.component';
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { DispatchComponent } from "./components/dispatch/dispatch.component";
+import { ShopsComponent } from "./components/shops/shops.component";
+import { CategoriesComponent } from './components/categories/categories.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { DispatchComponent } from './components/dispatch/dispatch.component';
     ShopComponent,
     DashboardComponent,
     DispatchComponent,
+    ShopsComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,

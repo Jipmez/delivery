@@ -92,7 +92,6 @@
           <table class="table table-wishlist">
             <thead>
               <tr class="main-heading">
-
                 <th scope="col" colspan="2">Product</th>
                 <th scope="col">Unit Price</th>
                 <th scope="col">Quantity</th>
@@ -134,6 +133,18 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td style="font-weight : 500;
+                font-size: 1.1rem;
+                text-align: center;">Weight(Kg)</td>
+                <td>
+                  <h5 class="text-brand">{{cartWeight}}</h5>
+                </td>
+              </tr>
+              <tr class="border-0">
+                <td style="border: none;"></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>TOTAL</td>
                 <td>
                   <h4 class="text-brand">{{cartTotal | currency:'₦'}}</h4>
@@ -144,8 +155,8 @@
         </div>
         <div class="divider-2 mb-30"></div>
         <div class="cart-action d-flex justify-content-between">
-          <a class="btn "><i class="fa fa-caret-left mr-10"></i>Continue Shopping</a>
-          <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Checkout</a>
+          <a routerLink="/" class="btn mr-10 mb-sm-15"><i class="fa fa-caret-left mr-10"></i>Continue Shopping</a>
+          <a routerLink="/checkout" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Checkout</a>
         </div>
         <div class=" mb-30"></div>
       </div>

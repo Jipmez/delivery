@@ -7,7 +7,7 @@ import { OrderService } from "../../services/order.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { FormBuilder, NgForm, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { AuthService } from "src/app/services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { SessionStorageService } from "angular-web-storage";
 declare var tidioChatApi;
 declare var $;
@@ -16,7 +16,7 @@ import {
   InlinePaymentOptions,
   PaymentSuccessResponse,
 } from "flutterwave-angular-v3";
-import { DataService } from "src/app/services/data.provider";
+import { DataService } from "../../services/data.provider";
 
 @Component({
   selector: "mg-checkout",
@@ -26,6 +26,8 @@ import { DataService } from "src/app/services/data.provider";
 export class CheckoutComponent implements OnInit {
   cartData: CartModelServer;
   cartTotal: any;
+  cartWeight: any;
+  weightPrice: any;
   showSpinner: Boolean;
   checkoutForm: any;
   user: any;
@@ -34,7 +36,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private orderService: OrderService,
-    private router: Router,
+    public router: Router,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private toast: ToastrService,
@@ -62,17 +64,14 @@ export class CheckoutComponent implements OnInit {
     description: "Customization Description",
     logo: "http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/logo.svg",
   };
-
   meta = { counsumer_id: "7898", consumer_mac: "kjs9s8ss7dd" };
 
   ngOnInit() {
     if (this.auth.isLoggedIn()) {
       this.auth.profile().subscribe((res) => {
         this.user = res;
-        console.log(this.user);
       });
     }
-
     this.checkoutForm = this.fb.group({
       full_name: ["", Validators.required],
       email: ["", [(Validators.required, Validators.email)]],
@@ -81,11 +80,10 @@ export class CheckoutComponent implements OnInit {
         billing_address: [""],
         landmark: [""],
       }),
-      delivery_time: ["2"],
+      delivery_time: ["", Validators.required],
     });
 
     setTimeout(() => {
-      console.log(this.user);
       this.checkoutForm = this.fb.group({
         full_name: [this.user ? this.user?.full_name : "", Validators.required],
         email: [
@@ -99,12 +97,16 @@ export class CheckoutComponent implements OnInit {
           ],
           landmark: [this.user ? this.user.address?.landmark : ""],
         }),
-        delivery_time: ["2"],
+        delivery_time: ["", Validators.required],
       });
     }, 1000);
 
     this.cartService.cartDataObs$.subscribe((data) => (this.cartData = data));
     this.cartService.cartTotal$.subscribe((total) => (this.cartTotal = total));
+    this.cartService.cartWeight$.subscribe((weight) => {
+      this.cartWeight = weight;
+      this.weightPrice = weight >= 10 ? 50 * weight : null;
+    });
   }
 
   reloadCurrentPage() {
@@ -134,7 +136,7 @@ export class CheckoutComponent implements OnInit {
           billing_address: [this.user ? this.user.address.billing_address : ""],
           landmark: [this.user ? this.user.address.landmark : ""],
         }),
-        delivery_time: ["2"],
+        delivery_time: ["", Validators.required],
       });
     }, 1000);
   }
@@ -142,6 +144,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     this.auth.login(this.loginForm.value).subscribe(
       (res) => {
+        this.loginForm.reset();
         if (!res["token"]) return console.log("failed");
         let session = res["token"];
         this.session.set("sid", session);
@@ -150,6 +153,7 @@ export class CheckoutComponent implements OnInit {
       },
       (e) => {
         if (e) {
+          this.loginForm.reset();
           return this.toast.error("unable to log in");
         }
       }
@@ -159,6 +163,7 @@ export class CheckoutComponent implements OnInit {
   makePayment(x: InlinePaymentOptions) {
     this.flutterwave.inlinePay(x);
   }
+
   makePaymentCallback(response: PaymentSuccessResponse): void {
     let payload = JSON.parse(localStorage.getItem("payload"));
     let payment = {
@@ -175,6 +180,7 @@ export class CheckoutComponent implements OnInit {
 
     this.cartService.CheckoutCart(payload);
   }
+
   closedPaymentModal(): void {
     console.log("payment is closed");
   }
@@ -187,14 +193,20 @@ export class CheckoutComponent implements OnInit {
         invalid.push(name);
       }
     }
+    for (var i = 0; i < invalid.length; i++) {
+      $(document.getElementsByName(invalid[i])).css("border-color", "red");
+    }
     return invalid;
   }
 
   checkOut() {
+    if (!this.auth.isLoggedIn()) {
+      $("#focusme").focus();
+      return this.toast.warning("login to place an order");
+    }
     if (this.checkoutForm.invalid) {
-      // here potentially add some visual feedback for a user
-      return this.toast.success(
-        this.findInvalidControls() + "" + "" + "is required"
+      return this.toast.warning(
+        this.findInvalidControls() + "" + "is required"
       );
     }
     let payload = {
@@ -204,8 +216,10 @@ export class CheckoutComponent implements OnInit {
     payload.cart.info = this.checkoutForm.value.info;
     payload.cart.total =
       this.checkoutForm.value.delivery_time == 1
-        ? payload.cart.total + this.data.getUserLocationInstantPrice
-        : payload.cart.total + this.data.getUserLocationLaterPrice;
+        ? payload.cart.total +
+          (this.data.getUserLocationInstantPrice + this.weightPrice)
+        : payload.cart.total +
+          (this.data.getUserLocationLaterPrice + this.weightPrice);
     payload.cart.delivery_time = this.checkoutForm.value.delivery_time;
     delete payload.user.info;
     delete payload.user.delivery_time;
@@ -229,9 +243,7 @@ export class CheckoutComponent implements OnInit {
       onclose: this.closedPaymentModal,
       callbackContext: this,
     };
-
     this.makePayment(paymentData);
-    /*  console.log(payload); */
   }
 
   generateReference(): string {
@@ -241,7 +253,6 @@ export class CheckoutComponent implements OnInit {
     for (let i = 0; i < 20; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
-
     return text;
   }
 
@@ -258,6 +269,7 @@ export class CheckoutComponent implements OnInit {
     let ele = document.getElementById("collapsePassword");
     ele.classList.toggle("show");
   }
+
   tsd(x, email) {
     tidioChatApi.open();
     tidioChatApi.messageFromVisitor(x);
@@ -281,9 +293,9 @@ export class CheckoutComponent implements OnInit {
           positionClass: "toast-top-right",
         }
       );
-
       /*  this.cartService.getcrtData() */
     }
+
     let radn = Math.floor(Math.random() * 100000) + 1;
     let mft = `Hi, i'm intreasted to purchase this product
 

@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private router: Router,
-
     public data: DataService
   ) {
     this.productService.currentMessage.subscribe(
@@ -36,14 +35,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data.getUserLocation);
+    //console.log(this.data.getUserLocation);
     this.productService
       .getAllProducts({
         location: this.data.getUserLocation ? this.data.getUserLocation : "",
         page: "",
       })
       .subscribe((prods) => {
-        console.log(prods);
+        //  console.log(prods);
         this.products = prods.results;
         this.next = prods.next;
         this.prev = prods.previous;
@@ -82,9 +81,11 @@ export class HomeComponent implements OnInit {
   AddProduct(id: Number) {
     this.cartService.AddProductToCart(
       id,
-      this.quantity,
+      $("#quantity" + id).text(),
       $("#spInst" + id).val()
     );
+
+    $("#quickViewModal" + id).modal("hide");
   }
 
   selectProduct(id: Number) {
@@ -95,16 +96,21 @@ export class HomeComponent implements OnInit {
     this.cartService.AddProductToCart(id, null, $("#spInst" + id).val());
   }
 
-  Increase() {
+  Increase(id: Number) {
+    this.quantity = $("#quantity" + id).text();
     this.quantity++;
 
+    this.quantity = $("#quantity" + id).text(this.quantity);
     console.log(this.quantity);
     /*  this.quantityInput.nativeElement.value = value.toString(); */
   }
 
-  Decrease() {
+  Decrease(id: Number) {
+    this.quantity = $("#quantity" + id).text();
     this.quantity--;
     if (this.quantity < 1) this.quantity = 1;
+    this.quantity = $("#quantity" + id).text(this.quantity);
+    console.log(this.quantity);
     /*  this.quantityInput.nativeElement.value = value.toString(); */
   }
 }

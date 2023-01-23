@@ -5,7 +5,7 @@ import { ProductService } from "../../services/product.service";
 import { SessionStorageService } from "angular-web-storage";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
-import { DataService } from "src/app/services/data.provider";
+import { DataService } from "../../services/data.provider";
 declare let $;
 @Component({
   selector: "mg-header",
@@ -15,9 +15,9 @@ declare let $;
 export class HeaderComponent implements OnInit {
   cartData: CartModelServer;
   cartTotal: Number;
+  cartWeight: number;
   location;
   loca;
-
   constructor(
     public cartService: CartService,
     private productService: ProductService,
@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
       this.cartTotal = total;
     });
 
+    this.cartService.cartWeight$.subscribe((weight) => {
+      this.cartWeight = weight;
+    });
     this.cartService.cartDataObs$.subscribe((data) => (this.cartData = data));
 
     this.auth.getLocation().subscribe((res) => (this.location = res));

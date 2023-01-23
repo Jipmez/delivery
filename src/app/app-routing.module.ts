@@ -4,7 +4,9 @@ import { HomeComponent } from "./components/home/home.component";
 import { CartComponent } from "./components/cart/cart.component";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { ShopComponent } from "./components/shop/shop.component";
+import { ShopsComponent } from "./components/shops/shops.component";
 import { ProductComponent } from "./components/product/product.component";
+import { CategoriesComponent } from "./components/categories/categories.component";
 import { ThankyouComponent } from "./components/thankyou/thankyou.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: "shop/:id/:name",
     component: ShopComponent,
+  },
+  {
+    path: "categories/:id/:name",
+    component: CategoriesComponent,
+  },
+  {
+    path: "shops",
+    component: ShopsComponent,
   },
   {
     path: "cart",

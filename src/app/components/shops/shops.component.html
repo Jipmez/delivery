@@ -1,0 +1,78 @@
+<main class="main pages mb-80">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a routerLink="/" rel="nofollow" class="mr-5"><i class="fa fa-home mr-5"></i>Home</a>
+        <i class="fa fa-caret-right" style="padding: 0 10px;"></i> <a routerLink="/shops" class="mr-5">
+          Vendors</a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content pt-50">
+    <div class="container">
+      <div class="archive-header-2 text-center">
+        <h1 class="display-2 mb-50">Vendors</h1>
+        <div class="row">
+          <div class="col-lg-5 mx-auto">
+            <div class="sidebar-widget-2 widget_search mb-50">
+              <div class="search-form">
+                <input type="text" placeholder="Search vendors (by name or ID)..."
+                  (change)="searchVendors($event.target.value)">
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto text-center mb-3">
+        <p>We have <strong class="text-brand">{{shops.length}}</strong> vendors now</p>
+      </div>
+      <div class="row vendor-grid">
+        <div class="col-lg-4 col-md-4 col-6 col-sm-4" *ngFor="let item of shops">
+          <div class="vendor-wrap style-2 mb-40">
+            <!-- <div class="product-badges product-badges-position product-badges-mrg">
+              <span class="hot">Mall</span>
+            </div> -->
+            <div class="vendor-img-action-wrap">
+              <div class="vendor-img">
+                <a routerLink="/shop/{{item?.id}}/{{item?.name}}">
+                  <img class="default-img" [src]="item?.picture" alt="" style="height: 100px;">
+                </a>
+              </div>
+              <!--   <div class="mt-10">
+                <span class="font-small total-product">380 products</span>
+              </div> -->
+            </div>
+            <div class="vendor-content-wrap">
+              <div class="mb-30">
+                <h4 class="mb-5"><a routerLink="/shop/{{item?.id}}/{{item?.name}}">{{item?.name | titlecase}}</a></h4>
+                <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                  <a routerLink="/shop/{{item?.id}}/{{item?.name}}" class="btn btn-xs">Visit Store <i
+                      class="fi-rs-arrow-small-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--     <div class="pagination-area mt-20 mb-20">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-start">
+            <li class="page-item">
+              <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div> -->
+    </div>
+  </div>
+</main>

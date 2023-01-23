@@ -4,12 +4,15 @@
 </ngx-spinner>
 
 <main class="main" data-select2-id="20" *ngIf="cartData.total > 0">
-  <div class="page-header breadcrumb-wrap">
+  <div class="page-header breadcrumb-wrap" #loi id="loi" id="focusme" tabindex="100">
     <div class="container">
+
       <div class="breadcrumb">
-        <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-        <span></span> Shop
-        <span></span> Checkout
+        <a routerLink="/" rel="nofollow" class="mr-5"><i class="fa fa-home mr-5"></i>Home</a>
+        <i class="fa fa-caret-right" style="padding: 0 10px;"></i>
+        Shop
+        <i class="fa fa-caret-right" style="padding: 0 10px;"></i>
+        Checkout
       </div>
     </div>
   </div>
@@ -72,7 +75,7 @@
           <h4 class="mb-30">Billing Details</h4>
           <div class="row">
             <div class="form-group col-lg-6">
-              <input type="text" class="form-control" required="" name="fname" placeholder="Full name *"
+              <input type="text" class="form-control" required="" name="full_name" placeholder="Full name *"
                 formControlName="full_name">
             </div>
             <div class="form-group col-lg-6">
@@ -83,11 +86,11 @@
           <div formGroupName="address">
             <div class="row">
               <div class="form-group col-lg-6">
-                <input type="text" class="form-control" name="billing_address" required="" placeholder="Address *"
+                <input type="text" class="form-control" name="address" required="" placeholder="Address *"
                   formControlName="billing_address">
               </div>
               <div class="form-group col-lg-6">
-                <input type="text" class="form-control" name="landmark" required="" placeholder="Landmark *"
+                <input type="text" class="form-control" name="address" required="" placeholder="Landmark *"
                   formControlName="landmark">
               </div>
             </div>
@@ -148,10 +151,11 @@
               <div class="ant-select-selection-selected-value mb-1" style="display: block; opacity: 1;">Delivery
                 time</div>
 
-              <div class="form-group form-control">
+              <div class="form-group form-control" name="delivery_time">
                 <div class="custom-select js-example-basic-single"
                   style="width:100%; border-radius: 10px; border: none;">
-                  <select formControlName="delivery_time">
+                  <select formControlName="delivery_time" name="delivery_time">
+                    <option value="" selected>Choose Delivery time</option>
                     <option value="1"> Now
                     </option>
                     <option value="2"> 12:00pm - 5:00pm</option>
@@ -160,27 +164,25 @@
               </div>
 
 
-              <div class="Summary___xAbzz">
+              <div class="Summary___xAbzz" *ngIf="this.checkoutForm?.value.delivery_time > 0">
                 <div class="feeDetail___UmhH4 ">
 
                   <div class="flexSpaceBetween___J6Lln mb-2">
                     <div class="subTotal___1rSTB"><span>Delivery fee</span>
                     </div>
                     <h6>
-                      {{(this.checkoutForm.value.delivery_time == 1 ?  data.getUserLocationInstantPrice : data.getUserLocationLaterPrice) | currency : 'N'}}
+                      {{(this.checkoutForm?.value.delivery_time == 1  ?  data?.getUserLocationInstantPrice : data?.getUserLocationLaterPrice) | currency : 'N'}}
+                      <span *ngIf="this.cartWeight >= 10">+ {{this.weightPrice | currency : 'N'}}
+                        ({{this.cartWeight}}Kg)</span>
                     </h6>
                   </div>
-
-
                   <div class="flexSpaceBetween___J6Lln">
                     <div class="subTotal___1rSTB"><span>Subtotal (estimated)</span>
                     </div>
                     <h6>
-                      {{(this.checkoutForm.value.delivery_time == 1 ? cartTotal +  data.getUserLocationInstantPrice : cartTotal + data.getUserLocationLaterPrice) | currency : 'N'}}
+                      {{(this.checkoutForm?.value.delivery_time == 1 ? (this.cartTotal + this.weightPrice) +  data?.getUserLocationInstantPrice : (this.cartTotal + this.weightPrice) + data?.getUserLocationLaterPrice) | currency : 'N'}}
                     </h6>
                   </div>
-
-
                 </div>
                 <!-- <div>Delivery Fee will be shown after you review order</div> -->
               </div>
@@ -190,16 +192,10 @@
             <h4 class="mb-30">Payment</h4>
             <div class="payment_option">
               <div class="custome-radio">
-                <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3"
-                  checked="">
-                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
-                  data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank Transfer</label>
-              </div>
-              <div class="custome-radio">
                 <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5"
                   checked="">
-                <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal"
-                  aria-controls="paypal">Online Getway</label>
+                <label id="dfdf" class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
+                  data-target="#paypal">Online Getway</label>
               </div>
             </div>
             <div class="payment-logo d-flex">
@@ -208,8 +204,11 @@
               <img class="mr-15" src="http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/payment-master.svg"
                 alt="">
             </div>
-            <button (click)="checkOut()" name="logiawn" type="submit" [disabled]="!auth.isLoggedIn()"
-              class="btn btn-fill-out btn-block mt-30"> {{!auth.isLoggedIn() ? 'Login to' : ''}} Place an
+            <!--  <a onClick="document.getElementById('focusme').focus();">
+              Login
+            </a> -->
+            <button (click)="checkOut()" name="logiawn" class="btn btn-fill-out btn-block mt-30">
+              {{!auth.isLoggedIn() ? 'Login to' : ''}} Place an
               Order<i class="fi-rs-sign-out ml-15"></i></button>
           </div>
         </div>

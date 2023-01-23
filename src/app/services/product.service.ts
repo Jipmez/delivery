@@ -55,4 +55,25 @@ export class ProductService {
   getProductsFromVendor(id: Number) {
     return this.http.get<serverResponse>(this.url + "related-shop-items/" + id);
   }
+
+  getProductsFromCategories(id: Number) {
+    return this.http.get<serverResponse>(this.url + "related-category/" + id);
+  }
+
+  getVendors(x) {
+    let params = x;
+    Object.keys(params).forEach(
+      (key) =>
+        params[key] === undefined ||
+        params[key] === null ||
+        (params[key] === "" && delete params[key])
+    );
+    return this.http.get<serverResponse>(this.url + "shops", {
+      params: params,
+    });
+  }
+
+  searchVendors(x: string) {
+    return this.http.get<serverResponse>(this.url + "search-shop?search=" + x);
+  }
 }

@@ -16,6 +16,7 @@ export interface ProductModelServer {
   category: String;
   description: String;
   discount_price: String;
+  weight_in_kg: number;
   price: Number;
   quantity: any;
   picture: String;
