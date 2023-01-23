@@ -1,0 +1,168 @@
+<main class="main" style="transform: none;">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+
+      <div class="breadcrumb">
+        <a routerLink="/" rel="nofollow" class="mr-5"><i class="fa fa-home mr-5"></i>Home</a>
+        <i class="fa fa-caret-right" style="padding: 0 10px;"></i>
+        {{name}}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container mb-30" style="transform: none;">
+    <div class="archive-header-2 text-center pt-80 pb-50">
+      <h1 class="display-2 mb-50 text-capitalize">{{name}}</h1>
+      <div class="row">
+        <div class="col-lg-5 mx-auto">
+          <div class="sidebar-widget-2 widget_search mb-50">
+            <div class="search-form">
+              <form action="#">
+                <input type="text" #inp name="inp" placeholder="Search...">
+                <button type="submit" (click)="filterr(inp.value)"><i class="fa fa-search"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mx-auto text-center mb-3">
+        <p>We have <strong class="text-brand">{{products.length}}</strong> items for</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row " style="transform: none;">
+        <div class="col-lg-12">
+          <div class="row product-grid">
+            <div class="col-lg-1-5 col-md-12 col-6 col-sm-12" *ngFor="let p of products">
+              <div class="product-cart-wrap mb-30 wow animate__ animate__fadeIn animated" data-wow-delay=".1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+                <div class="product-img-action-wrap">
+                  <div class="product-img product-img-zoom">
+                    <a href="javascript:void(0);" (click)="selectProduct(p.id)">
+                      <img class="default-img" [src]="p.picture" alt="{{p?.title}}">
+                      <img class="hover-img" [src]="p.picture" alt="{{p?.title}}">
+                    </a>
+                  </div>
+                </div>
+                <div class="product-content-wrap">
+                  <div class="product-category">
+                    <a href="javascript:void(0);" (click)="selectProduct(p.id)">{{p?.category | titlecase}}</a>
+                  </div>
+                  <h2><a href="javascript:void(0);" (click)="selectProduct(p.id)">
+                      {{p?.title.substr(0, 10) | titlecase}}</a></h2>
+                  <div>
+                    <span class="font-small text-muted">By <a
+                        routerLink="/shop/{{p?.shop.id}}/{{p?.shop.name}}">{{p?.shop.name | titlecase}}</a></span>
+                  </div>
+                  <div class="product-card-bottom">
+                    <div class="product-price">
+                      <span>{{p?.price | currency:'N'}}</span>
+                      <span class="old-price">{{p?.discount_price | currency:'N'}}</span>
+                    </div>
+
+                  </div>
+
+                  <div class="add-cart">
+                    <a class="add text-center" href="javascript:void(0);" style="position: relative;
+                  display: inline-block;
+                  padding: 6px 20px 6px 20px;
+                  border-radius: 4px;
+                  background-color: #DEF9EC;
+                  font-size: 14px;
+                  font-weight: 700;
+                  width: 100%;
+                  margin-top: 15px;" [attr.data-bs-target]="'#quickViewModal'+ p.id" data-bs-toggle="modal"><i
+                        class="fa fa-plus mr-2"></i></a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal fade custom-modal" id="quickViewModal" [id]="'quickViewModal' + p.id" tabindex="-1"
+                aria-labelledby="quickViewModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
+                          <div class="detail-gallery">
+                            <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                            <!-- MAIN SLIDES -->
+                            <div class="product-image-slider slick-initialized slick-slider">
+                              <div class="product-preview">
+                                <img [src]="p.picture" alt="{{p.title}}" width="100%" height="100%">
+                              </div>
+                            </div>
+
+                          </div>
+                          <!-- End Gallery -->
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                          <div class="detail-info pr-30 pl-30">
+                            <h4 class="title-detail"><a href="shop-product-right.html"
+                                class="text-heading text-capitalize">{{p?.title}}</a></h4>
+
+                            <div class="clearfix product-price-cover">
+                              <div class="product-price primary-color float-left">
+                                <span class="current-price text-brand">{{p?.price | currency:'N'}}</span>
+                                <span>
+
+                                  <span class="old-price font-md ml-15">{{p?.discount_price | currency:'N'}}</span>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="font-xs mb-30">
+                              <h6>Special Instructions </h6>
+                              <textarea placeholder="E.g. No onions please" class="ant-input inputTextArea___3ULyx"
+                                [id]="'spInst' + p.id" maxlength="130"
+                                style="height: 88px; min-height: 88px; max-height: 88px; overflow-y: hidden;"></textarea>
+                            </div>
+
+
+                            <div class="detail-extralink mb-30">
+                              <div class="detail-qty border radius">
+                                <a href="javascript:void(0);" class="qty-down" (click)="Decrease(p.id)"><i
+                                    class="fa fa-caret-down"></i></a>
+                                <span class="qty-val" [id]="'quantity' + p.id">{{quantity ? 1 : 1 }}</span>
+                                <a href="javascript:void(0);" class="qty-up" (click)="Increase(p.id)"><i
+                                    class="fa fa-caret-up"></i></a>
+                              </div>
+                              <div class="product-extra-link2">
+                                <button type="submit" class="button button-add-to-cart" (click)="AddProduct(p.id)"><i
+                                    class="fa fa-cart-plus"></i>Add to cart</button>
+                              </div>
+                            </div>
+
+                          </div>
+                          <!-- Detail Info -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination-area mt-20 mb-20">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i class="fa fa-arrow-left"></i></a>
+                  </li>
+
+                  <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

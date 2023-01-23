@@ -1,0 +1,140 @@
+<main class="main pages">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+        <span></span> Pages <span></span> My Account
+      </div>
+    </div>
+  </div>
+  <div class="page-content pt-50 pb-150">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 m-auto">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="dashboard-menu">
+                <ul class="nav flex-column" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab"
+                      aria-controls="dashboard" aria-selected="false"><i
+                        class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" (click)="refresh()" id="orders-tab" data-bs-toggle="tab" href="#orders"
+                      role="tab" aria-controls="orders" aria-selected="true"><i
+                        class="fi-rs-shopping-bag mr-10"></i>Orders to
+                      deliver</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab" href="#track-orders" role="tab"
+                      aria-controls="track-orders" aria-selected="false"><i
+                        class="fi-rs-shopping-cart-check mr-10"></i>Confirm delivery</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="tab-content account dashboard-content ">
+                <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="mb-0">Hello {{user?.full_name}}!</h3>
+                    </div>
+                    <div class="card-body">
+                      <p>
+                        From your account dashboard. you can easily check &amp; view your <a href="#">recent
+                          orders</a>,<br>
+                        manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password
+                          and account details.</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="mb-0">Your Orders</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Order</th>
+                              <th>Date</th>
+                              <th>Status</th>
+                              <th>Total</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let order of orders; let i = index ">
+                              <td>#{{i + 1}}</td>
+                              <td>{{order?.ordered_date | date}}</td>
+                              <td>
+                                {{order?.packaged == true && order?.received == false ? 'Processing' :  'Delivered'}}
+                              </td>
+                              <td>{{order?.payment.amount | currency:'N'}} for {{order?.cart.length}} item</td>
+                              <td><a (click)="openOrder(order.ref_code)" class="btn-small d-block">View</a></td>
+                              <td colspan="3" [id]="order?.ref_code" style="display: none;"><div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
+                                <div class="single-post clearfix" *ngFor="let item of order.cart">
+                                    <div class="image">
+                                        <img src="http://wp.alithemes.com/html/nest/demo/assets/imgs/shop/thumbnail-3.jpg" alt="#">
+                                    </div>
+                                    <div class="content pt-10">
+                                        <h5><a href="shop-product-detail.html">{{item.item}}</a></h5>
+                                        <p class="price mb-0 mt-5">{{item.quantity}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <h5>Phone:  {{order?.phone}}</h5>
+                                <br>
+                                <h5 class="mb-2">{{order?.billing_address.billing_address}}</h5>
+                                <h6>Landmark: {{order?.billing_address.landmark}}</h6> 
+                              </div>
+                              </td>  
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="mb-0">Confirm delivery</h3>
+                    </div>
+                    <div class="card-body contact-from-area">
+                      <p>To confirm your order please enter your DeliveryID in the box below and press "Confirm" button.
+                        This
+                        will be given to you by the reciever to ensure item reaches the owner</p>
+                      <div class="row">
+                        <div class="col-lg-8">
+                          <form class="contact-form-style mt-30 mb-50" (ngSubmit)="confirm(so)" #so='ngForm'>
+                            <div class="input-style mb-20">
+                              <label>Delivery ID</label>
+                              <input name="deliveryid" required placeholder="Given to you by reciever" ngModel
+                                type="text">
+                            </div>
+                            <button class="submit submit-auto-width" type="submit"
+                              [disabled]="!so.valid">Confirm</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+

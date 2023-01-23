@@ -1,0 +1,41 @@
+.fade {
+  &:not(.show) {
+    opacity: 0;
+  }
+}
+
+.collapse {
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.collapsing {
+  height: 0;
+  overflow: hidden;
+}
+
+.Summary___xAbzz {
+  border-top: 1px solid #f0efef;
+  padding-top: 24px;
+
+  .flexSpaceBetween___J6Lln {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+.subTotal___1rSTB {
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+
+  span {
+    font-size: 14px;
+    line-height: 1.42857143;
+    font-weight: 400;
+  }
+}

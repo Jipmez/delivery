@@ -1,0 +1,234 @@
+<header class="header-area header-style-1 header-height-2" data-select2-id="12">
+
+  <div class="header-middle header-middle-ptb-1 d-none sticky-bar d-lg-block" data-select2-id="11">
+    <div class="container" data-select2-id="10">
+      <div class="header-wrap" data-select2-id="9">
+        <div class="logo logo-width-1">
+          <h3 routerLink="/">Graba</h3>
+        </div>
+        <div class="header-right" data-select2-id="8">
+
+
+          <!-- <input type="text" placeholder="Search for items..."> -->
+          <div class="select-box choose-position">
+            <select class="" (change)="changeLocation($event)" style="border: 0;
+            border-radius: 50px;
+            padding-left: 58px;
+            background: url(http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/icon-location.svg) no-repeat 25px center;
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.07);
+            height: 48px;">
+              <option value="asd" selected="" disabled> Select your Location</option>
+              <option [value]="c.location_name+'__'+c.instant_price+'__'+c.later_price"
+                [selected]="data.getUserLocation == c.location_name" *ngFor="let c of location">
+                {{c.location_name}}</option>
+            </select>
+          </div>
+
+
+          <div class="header-action-right">
+            <div class="header-action-2">
+              <div class="header-action-icon-2">
+                <a class="mini-cart-icon">
+                  <img alt="Nest" src="	http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/icon-cart.svg">
+                  <span class="pro-count blue">{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}}</span>
+                </a>
+                <a><span class="lable">Cart</span></a>
+                <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                  <ul *ngIf="cartData.data[0].numInCart !== 0">
+                    <li *ngFor="let c of cartData.data; let i=index">
+                      <div class="shopping-cart-img">
+                        <a (click)="selectProduct(c.product.id)"><img alt="Nest" src="{{c.product?.picture}}"
+                            width="20px" height="20px"></a>
+                      </div>
+                      <div class="shopping-cart-title">
+                        <h4><a (click)="selectProduct(c.product.id)">{{c.product?.title}}</a></h4>
+                        <h4><span>{{c.numInCart}} × </span>{{c.product?.price | currency:'₦'}}</h4>
+                      </div>
+                      <div class="shopping-cart-delete">
+                        <a href="javascript:void(0);" (click)="cartService.DeleteProductFromCart(i)"><i
+                            class="fa fa-times"></i></a>
+                      </div>
+                    </li>
+
+                  </ul>
+                  <div class="shopping-cart-footer">
+                    <div class="shopping-cart-total">
+                      <h4>Weight(Kg) <span>{{cartWeight}}</span></h4>
+                      <hr>
+                      <h4>Total <span>{{cartTotal | currency:'₦'}}</span></h4>
+                    </div>
+                    <div class="shopping-cart-button">
+                      <a routerLink="cart" class="outline">View cart</a>
+                      <a routerLink="checkout">Checkout</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="header-action-icon-2">
+                <a [routerLink]="['authenticate']" [queryParams]="{auth: 'login'}">
+                  <img class="svgInject" alt="Nest"
+                    src="	http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/icon-user.svg">
+                </a>
+                <a [routerLink]="['authenticate']" [queryParams]="{auth: 'login'}"><span
+                    class="lable ml-0">Account</span></a>
+                <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                  <ul>
+                    <li>
+                      <a [routerLink]="['authenticate']" [queryParams]="{auth: 'login'}"><i class=" fi fi-rs-user
+                        mr-10"></i>My
+                        Account</a>
+                    </li>
+                    <li>
+                      <a [routerLink]="['authenticate']" [queryParams]="{auth: 'login'}"><i class=" fi fi-rs-user
+                        mr-10"></i>Login
+                      </a>
+                    </li>
+                    <li>
+                      <a [routerLink]="['authenticate']" [queryParams]="{auth: 'register'}"><i class=" fi fi-rs-user
+                        mr-10"></i>Signup
+                      </a>
+                    </li>
+                    <!--  <li>
+                      <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
+                    </li -->
+                    <!--   <li>
+                      <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
+                    </li> -->
+                    <li *ngIf="auth.isLoggedIn()">
+                      <a href="javascript:void(0);" (click)="auth.logOut()"><i class="fi fi-rs-sign-out mr-10"></i>Sign
+                        out</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-bottom header-bottom-bg-color">
+    <div class="container">
+      <div class="header-wrap header-space-between position-relative">
+        <div class="logo logo-width-1 d-block d-lg-none">
+          <h3 href="index.html">Graba</h3>
+        </div>
+
+
+        <div class="header-action-icon-2 d-block d-lg-none" (click)="toggleNav()">
+          <div class="burger-icon burger-icon-white">
+            <span class="burger-icon-top"></span>
+            <span class="burger-icon-mid"></span>
+            <span class="burger-icon-bottom"></span>
+          </div>
+        </div>
+        <div class="header-action-right d-block d-lg-none">
+          <div class="header-action-2">
+            <div class="header-action-icon-2">
+              <a class="mini-cart-icon" routerLink="/cart">
+                <img alt="Nest" src="	http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/icon-cart.svg">
+                <span class="pro-count white">{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}}</span>
+              </a>
+              <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                <ul *ngIf="cartData.data[0].numInCart !== 0">
+                  <li *ngFor="let c of cartData.data; let i=index">
+                    <div class="shopping-cart-img">
+                      <a (click)="selectProduct(c.product.id)"><img alt="Nest" src="{{c.product?.picture}}" width="20px"
+                          height="20px"></a>
+                    </div>
+                    <div class="shopping-cart-title">
+                      <h4><a (click)="selectProduct(c.product.id)">{{c.product?.title}}</a></h4>
+                      <h4><span>{{c.numInCart}} × </span>{{c.product?.price | currency:'₦'}}</h4>
+                    </div>
+                    <div class="shopping-cart-delete">
+                      <a href="javascript:void(0);" (click)="cartService.DeleteProductFromCart(i)"><i
+                          class="fa fa-times"></i></a>
+                    </div>
+                  </li>
+
+                </ul>
+                <div class="shopping-cart-footer">
+                  <div class="shopping-cart-total">
+                    <h4>Total <span>{{cartTotal | currency:'USD'}}</span></h4>
+                  </div>
+                  <div class="shopping-cart-button">
+                    <a routerLink="cart">View cart</a>
+                    <a routerLink="checkout">Checkout</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header___1O0kh sticky-bar d-block d-lg-none">
+    <div class="sectionContent___2XGJB addressBarContent" style="padding : 2px !important;">
+      <div class="  mobile-header-border">
+
+        <!-- <input type="text" placeholder="Search for items…">
+          <button type="submit"><i class="fa fa-search"></i></button> -->
+        <select class="" (change)="changeLocation($event)" style="border: 0;
+        border-radius: 10px;
+        padding-left: 58px;
+        background: url(http://wp.alithemes.com/html/nest/demo/assets/imgs/theme/icons/icon-location.svg) no-repeat 25px center;
+        box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.07);
+        height: 43px;">
+          <option value="" selected="" disabled> Select your Location</option>
+          <option [value]="c.location_name+'__'+c.instant_price+'__'+c.later_price"
+            [selected]="data.getUserLocation == c.location_name" *ngFor="let c of location">
+            {{c.location_name}}</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+
+</header>
+
+
+<div class="mobile-header-active mobile-header-wrapper-style" id="mobi">
+  <div class="mobile-header-wrapper-inner">
+    <div class="mobile-header-top">
+      <div class="mobile-header-logo">
+        <h3 href="index.html">Graba</h3>
+      </div>
+      <div class="mobile-menu-close close-style-wrap close-style-position-inherit" (click)="toggleNav()">
+        <button class="close-style search-close">
+          <i class="icon-top"></i>
+          <i class="icon-bottom"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-header-content-area">
+      <div class="mobile-menu-wrap mobile-header-border">
+        <!-- mobile menu start -->
+        <nav>
+          <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children" (click)="toggleNav()"><span class="menu-expand"><i
+                  class="fa fa-home"></i></span>
+              <a routerLink="/">Home</a>
+            </li>
+            <li class="menu-item-has-children" (click)="toggleNav()"><span class="menu-expand"><i
+                  class="fa fa-building"></i></span>
+              <a routerLink="/shops">Vendors</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- mobile menu end -->
+      </div>
+      <div class="mobile-header-info-wrap">
+        <div class="single-mobile-header-info" (click)="toggleNav()">
+          <a [routerLink]="['authenticate']" [queryParams]="{auth: 'login'}"><i class="fa fa-user"></i>Log In / Sign Up
+          </a>
+        </div>
+        <!--  <div class="single-mobile-header-info">
+          <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
